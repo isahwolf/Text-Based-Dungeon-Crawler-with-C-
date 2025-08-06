@@ -1,0 +1,1 @@
+    system("color 0A");
