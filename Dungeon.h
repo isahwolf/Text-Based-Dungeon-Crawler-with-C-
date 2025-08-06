@@ -1,4 +1,8 @@
 #include "Player.h"
+#include "Level.h"
+#include <vector>
+
+using namespace std;
 
 #ifndef DUNGEON_H
 #define DUNGEON_H
@@ -7,7 +11,8 @@ class Dungeon
 {
 public:
     Player player;
-    Room rooms[4];
+    Level level;
+    vector<Room*> rooms;
     Dungeon(Player);
     int runDungeon();
     void enterRoom(Room *);
@@ -16,8 +21,6 @@ public:
     void handleRoomWithEnemy(Room *);
     void handleLootActions(Room *);
     void handleFightActions(GameCharacter *);
-    void handleMovementActions(Room *);
-    void printActions(int, string[]);
     int performEndGameLogic();
 };
 

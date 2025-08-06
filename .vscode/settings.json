@@ -50,5 +50,11 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "code-runner.executorMap": {
+        "cpp": "g++ main.cpp Dungeon.cpp Player.cpp GameCharacter.cpp Item.cpp Room.cpp Level.cpp -o main.exe && .\\main.exe"
+    },
+    "code-runner.runInTerminal": true,
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.ignoreSelection": true
 }

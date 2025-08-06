@@ -2,7 +2,7 @@
 
 
 
-Room::Room(int p , bool ie, vector<Item> is, vector<GameCharacter> gcs)
+Room::Room(int p , bool ie, vector<Item> is, vector<GameCharacter*> gcs)
 {
     pos = p;
     isExit = ie;
