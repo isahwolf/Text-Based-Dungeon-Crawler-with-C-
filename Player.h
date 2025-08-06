@@ -11,7 +11,7 @@ public:
     Room * previousRoom;
     vector<Item> inventory;
     Player(string="", int=0, int=0, int=0);
-    void addItem(Item);
+    string addItem(Item);
     void increaseStats(int, int, int);
     //* references specific room
     void lootRoom(Room *);

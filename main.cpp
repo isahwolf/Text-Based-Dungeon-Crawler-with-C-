@@ -29,15 +29,15 @@ ________________________________________________________________________________
     Room firstRoom = Room(0, false, vector<Item>(), vector<GameCharacter>());
 
     // Set up the second room
-    Item ironSword = Item("Iron Sword", 0, 10, 0);
-    Item leatherHelmet = Item("Leather Helmet", 0, 0, 10);
+    Item ironSword = Item("Iron Sword", 0, 10, 0, ItemType::WEAPON);
+    Item leatherHelmet = Item("Leather Helmet", 0, 0, 10, ItemType::HELMET);
     vector<Item> secondRoomItems;
     secondRoomItems.push_back(ironSword);
     secondRoomItems.push_back(leatherHelmet);
     Room secondRoom = Room(1, false, secondRoomItems, vector<GameCharacter>());
 
     // Set up the third room
-    Item firstEnemyDrop= Item("Leather Boots", 0, 0, 10);
+    Item firstEnemyDrop= Item("Leather Boots", 0, 0, 10, ItemType::BOOTS);
     GameCharacter firstEnemy = GameCharacter(
         "Goblin Soldier",
         "It is a small green creature. It scowls and shows its sharp teeth. It readies its jagged metal sword.",
@@ -48,7 +48,7 @@ ________________________________________________________________________________
     Room thirdRoom = Room(2, false, vector<Item>(), thirdRoomEnemies);
 
     // Set up the fourth room
-    Item secondEnemyDrop = Item("Iron Chestplate", 0, 0, 15);
+    Item secondEnemyDrop = Item("Iron Chestplate", 0, 0, 15, ItemType::BOOTS);
     GameCharacter secondEnemy = GameCharacter(
         "Goblin Chief",
         "A larger green creature clad in heavy armor. There is a large scar across its face and appears meaner than the last enemy. It readies its long battle-worn spear.",

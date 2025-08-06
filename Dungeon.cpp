@@ -156,8 +156,16 @@ void Dungeon::handleLootActions(Room * room)
 {
     for (Item item : room->items)
     {
-        cout << "You picked up the " << item.name << ".\n";
-        cout << item.name << " has " << item.attack << " attack, " << item.health << " health, and " << item.defence << " defence.\n";
+        string removedItem = player.addItem(item);
+
+        cout << "You picked up the " << item.name;
+
+        if (removedItem != "")
+        {
+            cout << " and you dropped the " << removedItem;
+        }
+
+        cout << ".\n" << item.name << " has " << item.attack << " attack, " << item.health << " health, and " << item.defence << " defence.\n";
     }
     player.lootRoom(room);
 
