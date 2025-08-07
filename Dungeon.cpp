@@ -59,7 +59,7 @@ void Dungeon::handleFightActions(GameCharacter * enemy)
 
             cout << "You win! You have defeated the " << enemyName << "\n";
             cout << "\n";
-            player.increaseStats(10, 5, 5);
+            player.increaseStats(10, 1, 1);
             cout << "Your stats increased!\n";
             cout << "Your health is now " << player.currentHealth << ", your attack is now " << player.attack << ", and your defence is now " << player.defence << "\n";
             cout << "\n";
@@ -112,135 +112,6 @@ void Dungeon::handleFightActions(GameCharacter * enemy)
     }
 
 }
-
-// void Dungeon::handleFightActions(GameCharacter * enemy)
-// {
-//     string actions[] = 
-//     {
-//         "a. Attack",
-//         "b. View Stats", 
-//         "c. Retreat",
-//     };
-//     while(true)
-//     {
-//         level.printActions(3, actions);
-//         string input;
-//         cin >> input;
-//         // handle player actions
-//         if (input == "a" || input == "A")
-//         {
-//             // attack
-//             cout << "DEBUG: About to attack enemy\n";
-//             int damage = enemy->takeDamage(player.attack);
-//             cout << "Your attack does " << damage << " damage.\n";
-//             cout << enemy->name << " now has " << enemy->currentHealth << " health.\n";
-//             cout << "DEBUG: Attack completed\n";
-//         }
-//         else if (input == "b" || input == "B")
-//         {
-//             //View Stats
-//             cout << "Your stats are currently: \n";
-//             cout << player.currentHealth << " health, " << player.attack << " attack, and " << player.defence << " defence.\n";
-//             continue;
-//         }
-//         else if (input == "c" || input == "C")
-//         {
-//             //retreat
-//             player.changeRooms(player.previousRoom);
-//             enterRoom(player.currentRoom);
-//             return;
-//         }
-//         else
-//         {
-//             cout << "Incorrect choice\n";
-//         }
-        
-//         //check if enemy is dead
-//         cout << "DEBUG: Checking if enemy is dead\n";
-//         if (enemy->checkIsDead())
-//         {
-//             string enemyName = enemy->name;
-//             Item droppedItem = enemy->dropItem;
-//             cout << "DEBUG: Enemy is dead, starting victory sequence\n";
-//             cout << "You win! You have defeated the " << enemyName << "\n";
-//             cout << "\n";
-            
-//             cout << "DEBUG: About to increase player stats\n";
-//             player.increaseStats(10, 5, 5);
-//             cout << "Your stats increased!\n";
-//             cout << "Your health is now " << player.currentHealth << ", your attack is now " << player.attack << ", and your defence is now " << player.defence << "\n";
-//             cout << "\n";
-            
-//             cout << "DEBUG: About to access enemy drop item\n";
-//             cout << "Enemy name: " << enemyName << "\n";
-//             cout << "Drop item name: " << droppedItem.name << "\n";
-            
-//             cout << "The " << enemyName << " dropped " << droppedItem.name << "!\n";
-//             cout << "\n";
-            
-//             cout << "DEBUG: About to add item to room\n";
-//             player.currentRoom->items.push_back(droppedItem);
-            
-//             if (player.currentRoom == nullptr)
-//             {
-//                 cout << "ERROR: player.currentRoom is null before clearing enemies!\n";
-//                 return;
-//             }
-
-//             cout << "DEBUG: About to clear enemies\n";
-//             player.currentRoom->clearEnemies();
-//             cout << "DEBUG: Enemies cleared\n";
-
-//             if (!player.currentRoom->items.empty())
-//             {
-//                 cout << "DEBUG: Room has items, asking about looting\n";
-//                 cout << "Do you want to loot the room?\n";
-//                 string actions[] = 
-//                 {
-//                     "a. Yes",
-//                     "b. No",
-//                 };
-//                 while(true)
-//                 {
-//                     level.printActions(2, actions);
-//                     string input;
-//                     cin >> input;
-//                     if (input == "a" || input == "A")
-//                     {
-//                         cout << "DEBUG: About to handle loot actions\n";
-//                         // loot the current room
-//                         handleLootActions(player.currentRoom);
-//                         cout << "DEBUG: Loot actions completed\n";
-//                         return;
-//                     }
-//                     else if (input == "b" || input == "B")
-//                     {
-//                         cout << "DEBUG: Player chose not to loot\n";
-//                         return;
-//                     }
-//                     else
-//                     {
-//                         cout << "Incorrect choice\n";
-//                     }
-//                 }
-//             }
-//             cout << "DEBUG: No items in room, returning from fight\n";
-//             return;
-//         }
-        
-//         cout << "DEBUG: Enemy still alive, enemy attacks\n";
-//         // handle enemy actions
-//         int damage = player.takeDamage(enemy->attack);
-//         cout << enemy->name << "'s attack does " << damage << " damage.\n";
-//         cout << "You now have " << player.currentHealth << " health.\n";
-//         if (player.checkIsDead())
-//         {
-//             cout << "DEBUG: Player is dead\n";
-//             return;
-//         }
-//         cout << "DEBUG: End of combat round\n";
-//     }
-// }
 
 void Dungeon::handleRoomWithEnemy(Room * room)
 {
@@ -374,29 +245,63 @@ void Dungeon::enterRoom(Room * room)
     }
 }
 
-int Dungeon::performEndGameLogic()
+int Dungeon::performEndGameLogic(bool playerWon)
 {
-    string actions[] = 
+    if (playerWon)
     {
-        "a. Yes",
-        "b. No",
-    };
-    while(true)
+        string actions[] = 
+        {
+            "a. Next Level",
+            "b. Start Over",
+            "c. Quit",
+        };
+        while(true)
+        {
+            level.printActions(3, actions);
+            string input;
+            cin >> input;
+            if (input == "a" || input == "A")
+            {
+                return 2;
+            }
+            else if (input == "b" || input == "B")
+            {
+                return 1;
+            }
+            else if (input == "c" || input == "C")
+            {
+                return 0;
+            }
+            else
+            {
+                cout << "Incorrect choice\n";
+            }
+        }
+    }
+    else
     {
-        level.printActions(2, actions);
-        string input;
-        cin >> input;
-        if (input == "a" || input == "A")
+        string actions[] = 
         {
-            return 1;
-        }
-        else if (input == "b" || input == "B")
+            "a. Retry Level",
+            "b. Quit",
+        };
+        while(true)
         {
-            return 0;
-        }
-        else
-        {
-            cout << "Incorrect choice\n";
+            level.printActions(2, actions);
+            string input;
+            cin >> input;
+            if (input == "a" || input == "A")
+            {
+                return 1;
+            }
+            else if (input == "b" || input == "B")
+            {
+                return 0;
+            }
+            else
+            {
+                cout << "Incorrect choice\n";
+            }
         }
     }
 }
@@ -406,7 +311,7 @@ int Dungeon::runDungeon()
     cout << "\n";
     cout << "Welcome to the dungeon, " << player.name << "! Inside you will find treasures but also enemies. Enter at your peril!\n";
     cout << "\n";
-    cout << "You enter the dungeon with nothing but a small dagger.\n";
+    cout << "You enter the " << level.name << ".\n";
     cout << "Your stats are currently: \n";
     cout << player.currentHealth << " health, " << player.attack << " attack, and " << player.defence << " defence.\n";
     player.currentRoom = rooms[0];
@@ -420,7 +325,7 @@ int Dungeon::runDungeon()
         {
             // Lose the game
             cout << "Game Over! Try Again?\n";
-            return performEndGameLogic();
+            return performEndGameLogic(false);
         }
         else
         {
@@ -429,8 +334,8 @@ int Dungeon::runDungeon()
                 if (player.currentRoom->enemies.size() == 0)
                 {
                     //win the game
-                    cout << "You Win! Play Again?\n";
-                    return performEndGameLogic();
+                    cout << "You Win! Go to the next level?\n";
+                    return performEndGameLogic(true);
                 }
             }
         }

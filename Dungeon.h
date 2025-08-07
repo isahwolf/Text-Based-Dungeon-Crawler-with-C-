@@ -21,7 +21,7 @@ public:
     void handleRoomWithEnemy(Room *);
     void handleLootActions(Room *);
     void handleFightActions(GameCharacter *);
-    int performEndGameLogic();
+    int performEndGameLogic(bool);
 };
 
 #endif
